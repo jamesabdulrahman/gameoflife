@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'/>
+<title>Conway’s Game of Life</title>
+<script src='gameoflife.js'></script>
+<script src='gameofliferenderer.js'></script>
+<style>
+canvas {
+	background-image: url('grid.png');
+}
+</style>
+</head>
+<body>
+
+<h1>Conway’s Game of Life</h1>
+<canvas id='game_screen' height='701' width='701'></canvas>
+<script>
+const HEIGHT = 100;
+const WIDTH = 100;
+const CELL_SIZE = 7;
+let seed = [];
+
+for (let row = 0; row < HEIGHT; row++) {
+	let buf = new Array(WIDTH).fill(0);
+	seed.push(buf)
+}
+
+screen = document.getElementById('game_screen');
+gol = new GameOfLife(seed);
+
+renderer = new GameOfLifeRenderer(gol, screen, HEIGHT, WIDTH, CELL_SIZE, 0, 0);
+renderer.refresh();
+
+game_screen.addEventListener('mousedown',
+		function(evt) {
+			function min(x,y) {
+				if (x < y) {
+					return x;
+				}
+			return y;
+		}
+		let screen_pos = screen.getBoundingClientRect();
+		let col = min(Math.round((evt.clientX-screen_pos.left-1)/7),99);
+		let row = min(Math.round((evt.clientY-screen_pos.top-1)/7),99);
+		if (gol.dish[row][col] === 0) {
+			gol.dish[row][col] = 1;
+		}
+		else {
+			gol.dish[row][col] = 0;
+		}
+	}
+);
+
+</script>
+<p><span id='generation'></span> <button id='tick' onclick='gol.tick()'>Tick</button></p>
+<p>The rules are simple. Dead cells with exactly three neighbours will come alive. Live cells with two or three neighbours will survive: with more than three or less than two, they will die.</p>
+</body>
+
+</html>

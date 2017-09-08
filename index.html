@@ -8,13 +8,15 @@
 <style>
 canvas {
 	background-image: url('grid.png');
+	background-size: cover;
+	image-rendering: -moz-crisp-edges;
 }
 </style>
 </head>
 <body>
 
 <h1>Conway’s Game of Life</h1>
-<canvas id='game_screen' height='701' width='701'></canvas>
+<canvas id='game_screen' height='700' width='700'></canvas>
 <script>
 const HEIGHT = 100;
 const WIDTH = 100;
@@ -41,8 +43,8 @@ game_screen.addEventListener('mousedown',
 			return y;
 		}
 		let screen_pos = screen.getBoundingClientRect();
-		let col = min(Math.round((evt.clientX-screen_pos.left-1)/7),99);
-		let row = min(Math.round((evt.clientY-screen_pos.top-1)/7),99);
+		let col = min(Math.round((evt.clientX-screen_pos.left-1)/CELL_SIZE),99);
+		let row = min(Math.round((evt.clientY-screen_pos.top-1)/CELL_SIZE),99);
 		if (gol.dish[row][col] === 0) {
 			gol.dish[row][col] = 1;
 		}
@@ -53,7 +55,24 @@ game_screen.addEventListener('mousedown',
 );
 
 </script>
-<p><span id='generation'></span> <button id='tick' onclick='gol.tick()'>Tick</button></p>
+	<p>
+		<button id='tick' onclick='renderer.run()'>Run</button>
+		<button id='tick' onclick='renderer.stop()'>Stop</button>
+		<button id='tick' onclick='gol.clear()'>Clear</button>
+	</p>
+<!--
+<form id='presets'>
+	<p> Presets:
+	<select id='select_preset'>
+		<option id='acorn'>Acorn</option>
+		<option id='gosper'>Gosper Glider Gun</option>
+		<option id='diehard'>Diehard</option>
+		<option id='pulsars'>Pulsars</option>
+	</select>
+	<button id='load_preset'>Load</button>
+	</p>
+</form>
+-->
 <p>The rules are simple. Dead cells with exactly three neighbours will come alive. Live cells with two or three neighbours will survive: with more than three or less than two, they will die.</p>
 </body>
 

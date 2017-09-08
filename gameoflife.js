@@ -75,8 +75,7 @@ class GameOfLife {
 						buffer[row][col] = this.dish[row][col];
 						break;
 					default:
-					/* If we reach this point, we must have either
-					 * a dead or dying cell as we have a hood of
+					/* If we reach this point, we must have either					 * a dead or dying cell as we have a hood of
 					 * fewer than 2 or more than 4 cells. */
 						buffer[row][col] = DEAD;
 						break;
@@ -85,5 +84,14 @@ class GameOfLife {
 		}
 		// copy the buffer into the dish
 		this.dish = JSON.parse(JSON.stringify(buffer));
+	}
+
+	clear() {
+		// kill all cells
+		for (let row = 0; row < this.height; row++) {
+			for (let col = 0; col < this.width; col++) {
+				this.dish[row][col] = DEAD;
+			}
+		}
 	}
 }

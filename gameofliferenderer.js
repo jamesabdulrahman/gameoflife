@@ -28,7 +28,7 @@ class GameOfLifeRenderer {
 	putTile(row, col) {
 		let ctx = screen.getContext('2d');
 		let system = this.system;
-		ctx.fillRect(system[row][col].x, system[row][col].y, this.tileSize, this.tileSize);
+		ctx.fillRect(this.system[row][col].x, this.system[row][col].y, this.tileSize, this.tileSize);
 	}
 
 	refresh() {

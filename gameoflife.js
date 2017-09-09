@@ -94,4 +94,9 @@ class GameOfLife {
 			}
 		}
 	}
+
+	load(preset) {
+		this.clear()
+		this.dish = JSON.parse(JSON.stringify(presets[preset]))
+	}
 }

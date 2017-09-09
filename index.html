@@ -17,6 +17,7 @@ canvas {
 
 <h1>Conway’s Game of Life</h1>
 <canvas id='game_screen' height='700' width='700'></canvas>
+<script src='presets.js'></script>
 <script>
 const HEIGHT = 100;
 const WIDTH = 100;
@@ -25,7 +26,7 @@ let seed = [];
 
 for (let row = 0; row < HEIGHT; row++) {
 	let buf = new Array(WIDTH).fill(0);
-	seed.push(buf)
+	seed.push(buf);
 }
 
 screen = document.getElementById('game_screen');
@@ -60,19 +61,17 @@ game_screen.addEventListener('mousedown',
 		<button id='tick' onclick='renderer.stop()'>Stop</button>
 		<button id='tick' onclick='gol.clear()'>Clear</button>
 	</p>
-<!--
-<form id='presets'>
+<form oninput='gol.load(select_preset.value)'>
 	<p> Presets:
 	<select id='select_preset'>
-		<option id='acorn'>Acorn</option>
-		<option id='gosper'>Gosper Glider Gun</option>
-		<option id='diehard'>Diehard</option>
-		<option id='pulsars'>Pulsars</option>
+		<option id='dummy' name='' value='' selected='selected'>Select a preset</option>
+		<option id='acorn' name='acorn' value='acorn'>Acorn</option>
+		<option id='gosper' name='gosper' value='gosper'>Gosper Glider Gun</option>
+		<option id='diehard' name='diehard' value='diehard'>Diehard</option>
 	</select>
-	<button id='load_preset'>Load</button>
 	</p>
 </form>
--->
+
 <p>The rules are simple. Dead cells with exactly three neighbours will come alive. Live cells with two or three neighbours will survive: with more than three or less than two, they will die.</p>
 </body>
 
